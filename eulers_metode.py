@@ -16,6 +16,8 @@ p2, t_malt2, x_malt2, y_malt2 = iptrack('fysikk_lab/malinger_txt/bane2/Bane2-7.t
 p3, t_malt3, x_malt3, y_malt3 = iptrack('fysikk_lab/malinger_txt/bane3/Bane3-4.txt')
 
 
+# eulersMethod returnerer numerisk beregnede verdier for x, y, v, a og t basert på polynomet fra iptrack  og den
+# målte tiden. n_steps angir nøyaktigheten til beregningene.
 def eulersMethod(n_steps, p, t_malt):
     dt = t_malt[1] - t_malt[0]
     v0 = 0
@@ -41,13 +43,12 @@ def eulersMethod(n_steps, p, t_malt):
 
     return x, y, v, a, t
 
-
+# Henter ut numerisk beregnede verdier for de tre banene
 x1, y1, v1, a1, t1 = eulersMethod(N_STEPS, p1, t_malt1)
 x2, y2, v2, a2, t2 = eulersMethod(N_STEPS, p2, t_malt2)
 x3, y3, v3, a3, t3 = eulersMethod(N_STEPS, p3, t_malt3)
 
-print('t målt:\n', t_malt1, '\nBeregenet t:\n', t1)
-
+# Lager en sluttindex, men den blir kun brukt for bane 3 da den ser litt merkelig ut etter t = 0.72
 b1_index_slutt = min(min(np.argwhere(t1 > avg_tid1)))
 b2_index_slutt = min(min(np.argwhere(t2 > avg_tid2)))
 b3_index_slutt = min(min(np.argwhere(t3 > avg_tid3)))
