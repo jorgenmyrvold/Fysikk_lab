@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from utilities import trvalues, iptrack
 
 
+
 # Constants
 g = 9.82
 N_STEPS = 100
@@ -41,12 +42,15 @@ def eulersMethod(n_steps, p, t_malt):
         x[n + 1] = x[n] + np.cos(alpha) * v[n] * dt
         v[n + 1] = v[n] + a[n] * dt
 
-    return x, y, v, a, t
+    return x, y, v, a, t, R
 
 # Henter ut numerisk beregnede verdier for de tre banene
-x1, y1, v1, a1, t1 = eulersMethod(N_STEPS, p1, t_malt1)
-x2, y2, v2, a2, t2 = eulersMethod(N_STEPS, p2, t_malt2)
-x3, y3, v3, a3, t3 = eulersMethod(N_STEPS, p3, t_malt3)
+x1, y1, v1, a1, t1, R1 = eulersMethod(N_STEPS, p1, t_malt1)
+x2, y2, v2, a2, t2, R2 = eulersMethod(N_STEPS, p2, t_malt2)
+x3, y3, v3, a3, t3, R3 = eulersMethod(N_STEPS, p3, t_malt3)
+
+print(R2)
+print(R3)
 
 # Lager en sluttindex, men den blir kun brukt for bane 3 da den ser litt merkelig ut etter t = 0.72
 b1_index_slutt = min(min(np.argwhere(t1 > avg_tid1)))
