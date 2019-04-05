@@ -18,7 +18,7 @@ p3, t_malt3, x_malt3, y_malt3 = iptrack('fysikk_lab/malinger_txt/bane3/Bane3-4.t
 
 # eulersMethod returnerer numerisk beregnede verdier for x, y, v, a og t basert pa polynomet fra iptrack  og den
 # malte tiden. n_steps angir noyaktigheten til beregningene.
-def eulersMethod(n_steps, p, t_malt, x_malt):
+def eulersMethod(n_steps, p, t_malt, x_malt, baneradius):
 
 	tn = t_malt[-1]
 	t = np.linspace(0, tn, n_steps)
@@ -48,16 +48,15 @@ def eulersMethod(n_steps, p, t_malt, x_malt):
 		x[n + 1] = x[n] + np.cos(alpha) * v[n] * dt
 		v[n + 1] = v[n] + a[n] * dt
 		f[n + 1] = (2./5.) * a[n + 1]
-		N[n + 1] = g * np.cos(alpha) + ((dydx ** 2) / R[n])
+		N[n + 1] = g * np.cos(alpha) + ((v[n + 1] ** 2) / baneradius)
 
 	return x, y, v, a, t, f, R, N
 
 
 # Henter ut numerisk beregnede verdier for de tre banene
-x1, y1, v1, a1, t1, f1, R1 ,N1 = eulersMethod(N_STEPS, p1, t_malt1, x_malt1)
-x2, y2, v2, a2, t2, f2, R2, N2 = eulersMethod(N_STEPS, p2, t_malt2, x_malt2)
-x3, y3, v3, a3, t3, f3, R3, N3 = eulersMethod(N_STEPS, p3, t_malt3, x_malt3)
-
+x1, y1, v1, a1, t1, f1, R1 ,N1 = eulersMethod(N_STEPS, p1, t_malt1, x_malt1, 9999999999)
+x2, y2, v2, a2, t2, f2, R2, N2 = eulersMethod(N_STEPS, p2, t_malt2, x_malt2, -192.5)
+x3, y3, v3, a3, t3, f3, R3, N3 = eulersMethod(N_STEPS, p3, t_malt3, x_malt3, 192.5)
 
 R2_avg = np.mean(R2)
 R3_avg = np.mean(R3)
@@ -81,44 +80,43 @@ b3_index_slutt = min(min(np.argwhere(t3 > avg_tid3)))
 # plt.ylabel("Fart [m/s]")
 # plt.legend()
 # plt.show()
-#
-# # Plotter akselerasjon mot tid
-# plt.plot(t1, a1, label='Bane 1', linestyle='-')
-# plt.plot(t2, a2, label='Bane 2', linestyle='-')
-# plt.plot(t3[0: b3_index_slutt], a3[0: b3_index_slutt], label='Bane 3', linestyle='-') # Slicer listen sa de passer pa grafen
-# plt.title("Akselerasjon mot tid")
-# plt.xlabel("Tid [s]")
-# plt.ylabel("Akselerasjon [m/$s^2$]")
-# plt.legend()
-# plt.show()
-#
-# # Plotter friksjonskraft per kilo mot tid
-# plt.plot(t1, f1, label='Bane 1', linestyle='-')
-# plt.plot(t2, f2, label='Bane 2', linestyle='-')
-# plt.plot(t3[0: b3_index_slutt], f3[0: b3_index_slutt], label='Bane 3', linestyle='-') # Slicer listen sa de passer pa grafen
-# plt.title("Friksjonskraft mot tid")
-# plt.xlabel("Tid [s]")
-# plt.ylabel("Friksjonskraft per kilo [N/kg]")
-# plt.legend()
-# plt.show()
 
-# Plot av Normalkraft per kilo mot tid
-#plt.plot(t1, N1, label='Bane 1', linestyle='-')
-#plt.plot(t2, N2, label='Bane 2', linestyle='-')
-#plt.plot(t3[0: b3_index_slutt], N3[0: b3_index_slutt], label='Bane 3', linestyle='-') # Slicer listen sa de passer pa grafen
-# plt.plot(t3[0: b3_index_slutt], y3[0: b3_index_slutt], label='Bane 3 y-pos', linestyle=':')
-# plt.title("Friksjonskraft mot tid")
+# Plotter akselerasjon mot tid
+plt.plot(t1, a1, label='Bane 1', linestyle='-')
+plt.plot(t2, a2, label='Bane 2', linestyle='-')
+plt.plot(t3[0: b3_index_slutt], a3[0: b3_index_slutt], label='Bane 3', linestyle='-') # Slicer listen sa de passer pa grafen
+plt.title("Akselerasjon mot tid")
+plt.xlabel("Tid [s]")
+plt.ylabel("Akselerasjon [m/$s^2$]")
+plt.legend()
+plt.show()
+
+# Plotter friksjonskraft per kilo mot tid
+plt.plot(t1, f1, label='Bane 1', linestyle='-')
+plt.plot(t2, f2, label='Bane 2', linestyle='-')
+plt.plot(t3[0: b3_index_slutt], f3[0: b3_index_slutt], label='Bane 3', linestyle='-') # Slicer listen sa de passer pa grafen
+plt.title("Friksjonskraft mot tid")
+plt.xlabel("Tid [s]")
+plt.ylabel("Friksjonskraft per kilo [N/kg]")
+plt.legend()
+plt.show()
+
+# # Plot av Normalkraft per kilo mot tid
+# plt.plot(t1[1:], N1[1:], label='Bane 1', linestyle='-')
+# plt.plot(t2[1:], N2[1:], label='Bane 2', linestyle='-')
+# plt.plot(t3[1: b3_index_slutt], N3[1: b3_index_slutt], label='Bane 3', linestyle='-') # Slicer listen sa de passer pa grafen
+# plt.title("Normalkraft mot tid")
 # plt.xlabel("Tid [s]")
 # plt.ylabel("Normalkraft per kilo [N/kg]")
 # plt.legend()
 # plt.show()
 
-# Plot y-pos mot tid
-plt.plot(x1, y1, label='Bane 1', linestyle='-')
-plt.plot(x2, y2, label='Bane 2', linestyle='-')
-plt.plot(x3[0: b3_index_slutt], y3[0: b3_index_slutt], label='Bane 3 y-pos', linestyle='-')
-plt.title("Friksjonskraft mot tid")
-plt.xlabel("Tid [s]")
-plt.ylabel("Normalkraft per kilo [N/kg]")
-plt.legend()
-plt.show()
+# # Plot y-pos mot tid
+# plt.plot(x1, y1, label='Bane 1', linestyle='-')
+# plt.plot(x2, y2, label='Bane 2', linestyle='-')
+# plt.plot(x3[0: b3_index_slutt], y3[0: b3_index_slutt], label='Bane 3 y-pos', linestyle='-')
+# plt.title("Friksjonskraft mot tid")
+# plt.xlabel("Tid [s]")
+# plt.ylabel("Normalkraft per kilo [N/kg]")
+# plt.legend()
+# plt.show()
