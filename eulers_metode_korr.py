@@ -81,25 +81,25 @@ b3_index_slutt = min(min(np.argwhere(t3 > avg_tid3)))
 # plt.legend()
 # plt.show()
 
-# Plotter akselerasjon mot tid
-plt.plot(t1, a1, label='Bane 1', linestyle='-')
-plt.plot(t2, a2, label='Bane 2', linestyle='-')
-plt.plot(t3[0: b3_index_slutt], a3[0: b3_index_slutt], label='Bane 3', linestyle='-') # Slicer listen sa de passer pa grafen
-plt.title("Akselerasjon mot tid")
-plt.xlabel("Tid [s]")
-plt.ylabel("Akselerasjon [m/$s^2$]")
-plt.legend()
-plt.show()
+# # Plotter akselerasjon mot tid
+# plt.plot(t1, a1, label='Bane 1', linestyle='-')
+# plt.plot(t2, a2, label='Bane 2', linestyle='-')
+# plt.plot(t3[0: b3_index_slutt], a3[0: b3_index_slutt], label='Bane 3', linestyle='-') # Slicer listen sa de passer pa grafen
+# plt.title("Akselerasjon mot tid")
+# plt.xlabel("Tid [s]")
+# plt.ylabel("Akselerasjon [m/$s^2$]")
+# plt.legend()
+# plt.show()
 
-# Plotter friksjonskraft per kilo mot tid
-plt.plot(t1, f1, label='Bane 1', linestyle='-')
-plt.plot(t2, f2, label='Bane 2', linestyle='-')
-plt.plot(t3[0: b3_index_slutt], f3[0: b3_index_slutt], label='Bane 3', linestyle='-') # Slicer listen sa de passer pa grafen
-plt.title("Friksjonskraft mot tid")
-plt.xlabel("Tid [s]")
-plt.ylabel("Friksjonskraft per kilo [N/kg]")
-plt.legend()
-plt.show()
+# # Plotter friksjonskraft per kilo mot tid
+# plt.plot(t1, f1, label='Bane 1', linestyle='-')
+# plt.plot(t2, f2, label='Bane 2', linestyle='-')
+# plt.plot(t3[0: b3_index_slutt], f3[0: b3_index_slutt], label='Bane 3', linestyle='-') # Slicer listen sa de passer pa grafen
+# plt.title("Friksjonskraft mot tid")
+# plt.xlabel("Tid [s]")
+# plt.ylabel("Friksjonskraft per kilo [N/kg]")
+# plt.legend()
+# plt.show()
 
 # # Plot av Normalkraft per kilo mot tid
 # plt.plot(t1[1:], N1[1:], label='Bane 1', linestyle='-')
@@ -111,7 +111,7 @@ plt.show()
 # plt.legend()
 # plt.show()
 
-# # Plot y-pos mot tid
+# # Plot y mot y
 # plt.plot(x1, y1, label='Bane 1', linestyle='-')
 # plt.plot(x2, y2, label='Bane 2', linestyle='-')
 # plt.plot(x3[0: b3_index_slutt], y3[0: b3_index_slutt], label='Bane 3 y-pos', linestyle='-')
@@ -120,3 +120,16 @@ plt.show()
 # plt.ylabel("Normalkraft per kilo [N/kg]")
 # plt.legend()
 # plt.show()
+
+# Plot x-pos mot tid
+plt.plot(t1, x1, label='Bane 1', linestyle='-')
+plt.plot(t2, x2, label='Bane 2', linestyle='-')
+plt.plot(t3[0: b3_index_slutt], x3[0: b3_index_slutt], label='Bane 3', linestyle='-')
+plt.plot(t_malt1, x_malt1, label='Bane 1 målt', linestyle='-.', color='tab:blue')
+plt.plot(t_malt2, x_malt2, label='Bane 2 målt', linestyle='-.', color='tab:orange')
+plt.plot(t_malt3, x_malt3, label='Bane 3 målt', linestyle='-.', color='tab:green')
+plt.title("$x$-posisjon mot tid")
+plt.xlabel("Tid [s]")
+plt.ylabel("$x$-posisjon [m]")
+plt.legend()
+plt.show()
